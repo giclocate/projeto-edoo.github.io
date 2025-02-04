@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentação - Sistema de Gerenciamento Bibliotecário</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Sistema de Gerenciamento Bibliotecário</h1>
+        <h3> CIN0135 - ESTRUTURAS DE DADOS ORIENTADAS A OBJETOS</h2>
+        <h3>
+            <a href="https://github.com/giclocate" target="_blank">gcca</a>, 
+            <a href="https://github.com/MateusRiba" target="_blank">mra4</a>, 
+            <a href="https://github.com/SergioL1ra" target="_blank">sll</a>
+        </h3>
+        <img src="img/logocin.png" alt="Logo da Biblioteca">
+        <div class="buttons">
+            <a href="https://github.com/MateusRiba/Sistema-de-Informa-o-Bibliotec-rio" target="_blank">
+                <button class="code">💻 Código</button>
+            </a>
+            <a href="https://lucid.app/lucidchart/3cb6b549-92ac-4d61-bae2-d5c7146bb15b/edit?invitationId=inv_907deba6-9235-4222-bedc-db7782af95a0&page=HWEp-vi-RSFO#" target="_blank">
+                <button>📄 Diagramas UML</button>
+            </a>
+            <a href="Relatorio Sistema Bibliotecário CRUD - EDOO.pdf" target="_blank">
+                <button class="report">📊 Relatório</button>
+            </a>
+        </div>
+        
+    </header>
+
+    <main>
+        <section id="introducao">
+            <h2>Introdução</h2>
+            <h3>O Projeto-Edoo é um Sistema de Informação Bibliotecário desenvolvido em C++ no estilo CRUD. Ele possibilita a gestão de usuários (Leitor Comum e Administrador), cadastro e gerenciamento de livros e controle de empréstimos.</h3>
+        </section>
+
+        <section id="funcionalidades">
+            <h2>Funcionalidades Principais</h2>
+            
+            <h3>Cadastro de Usuários</h3>
+            <ul>
+                <li><strong>Administrador:</strong> gerencia usuários, livros e empréstimos.</li>
+                <li><strong>Leitor Comum:</strong> pode alugar livros, devolver e gerenciar seus empréstimos.</li>
+            </ul>
+        
+            <h3>Gerenciamento de Livros</h3>
+            <ul>
+                <li><strong>Livro Físico:</strong> atributos como peso, tipo de capa e quantidade em estoque.</li>
+                <li><strong>Livro Digital:</strong> atributos como tamanho do arquivo, licença digital e formato.</li>
+            </ul>
+        
+            <h3>Controle de Empréstimos</h3>
+            <ul>
+                <li>Criar e encerrar empréstimos.</li>
+                <li>Atualizar datas e custos de empréstimo.</li>
+                <li>Listagem de empréstimos ativos e históricos.</li>
+            </ul>
+        
+            <h3>Menus Diferenciados</h3>
+            <ul>
+                <li><strong>Administrador:</strong> gerenciamento de usuários, livros e empréstimos.</li>
+                <li><strong>Leitor Comum:</strong> visualização de livros, pesquisa e controle de empréstimos.</li>
+            </ul>
+        </section>
+        
+
+        <section id="arquitetura">
+            <h2>Detalhes de Implementação</h2>
+            
+            <h3>Classe Sistema</h3>
+            <ul>
+                <li>Mantém vetores de usuários e livros.</li>
+                <li>Lista de empréstimos (std::vector<Emprestimo>).</li>
+                <li>Métodos de busca e manipulação CRUD.</li>
+            </ul>
+        
+            <h3>Classes Livro, LivroFisico, LivroDigital</h3>
+            <ul>
+                <li>Livro é abstrata com método exibir() virtual.</li>
+                <li>LivroFisico: peso, tipo de capa, quantidade.</li>
+                <li>LivroDigital: tamanho do arquivo, formato.</li>
+            </ul>
+        
+            <h3>Classes Usuario, LeitorComum, Administrador</h3>
+            <ul>
+                <li>Usuario: CPF, nome, senha.</li>
+                <li>LeitorComum: gerencia seus empréstimos.</li>
+                <li>Administrador: pode alterar o sistema.</li>
+            </ul>
+        
+            <h3>Classe Emprestimo</h3>
+            <ul>
+                <li>Armazena ponteiros para Usuario* e Livro*.</li>
+                <li>Data de empréstimo, devolução, custo e status.</li>
+            </ul>
+        </section>
+
+        <section id="hierarquia-livro">
+            <h2>Hierarquia da Classe Livro</h2>
+            <p>A classe Livro representa qualquer livro cadastrado na biblioteca. Ela contém atributos essenciais, como título, autor, ISBN, ano de publicação e editora. A partir dela, foram especializadas duas classes:
+            </p>
+            <ul>
+                <li><strong>LivroFisico:</strong> Representa livros físicos, adicionando atributos como peso e tipo de capa.</li>
+                <li><strong>LivroDigital:</strong> Representa livros digitais, incluindo informações como tamanho do arquivo e formato.</li>
+            </ul>
+            <div class="diagramas">
+                <img class="diagrama" src="img/diagramalivro.png" alt="Diagrama Livro">
+            </div>
+        </section>
+
+        <section id="hierarquia-usuario">
+            <h2>Hierarquia da Classe Usuário</h2>
+            <ul>
+                <li><strong>LeitorComum:</strong> Pode buscar livros, realizar empréstimos e devolver livros.</li>
+                <li><strong>Administrador:</strong> Tem permissões avançadas, podendo cadastrar, remover e atualizar livros e usuários.</li>
+            </ul>
+            <div class="diagramas">
+                <img class="diagrama" src="img/diagramauser.png" alt="Diagrama Usuário">
+            </div>
+        </section>
+
+        <section id="sistema-emprestimo">
+            <h2>Classe Sistema e Empréstimo</h2>
+            <p>A classe <strong>Sistema</strong> é responsável por gerenciar a lógica do sistema e conectar os diferentes componentes. Ela mantém listas de usuários, livros e empréstimos, além de fornecer métodos para CRUD e controle de empréstimos.</p>
+            <p>Já a classe <strong>Emprestimo</strong> é responsável por criar um dado que interliga um livro a um usuário e determinar o custo do empréstimo. Esse empréstimo pode ser encerrado conforme necessário.</p>
+            <div class="diagramas">
+                <img class="diagrama pequeno" src="img/diagrama1.png" alt="Diagrama Sistema">
+                <img class="diagrama pequeno" src="img/diagramaemprestimo.png" alt="Diagrama Empréstimo">
+            </div>
+        </section>
+        
+        <section id="execucao">
+            <h2>Como executar o projeto via terminal:</h2>
+            <pre><code>
+1. Clone o repositório:
+   git clone https://github.com/MateusRiba/Sistema-de-Informa-o-Bibliotec-rio.git
+   cd Projeto-Edoo
+
+2. Compile:
+   g++ -o projeto src/*.cpp -Iinclude -std=c++11
+
+3. Execute:
+   ./projeto
+            </code></pre>
+        </section>
+
+        <section id="video">
+            <h2>Vídeo do Sistema em Execução</h2>
+            <p>Confira abaixo uma demonstração do sistema funcionando:</p>
+            <div class="video-container">
+                <iframe width="800" height="450" 
+                        src="https://www.youtube.com/embed/_xFTYp-6iQQ" 
+                        title="Vídeo do Sistema em Execução"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                </iframe>
+            </div>
+        </section>
+        
+        
+
+        <section id="qt-interface">
+            <h2>Interface Gráfica com Qt Creator</h2>
+            <p>Para proporcionar uma experiência mais amigável ao usuário, o sistema foi desenvolvido com <strong>Qt Creator</strong>, um framework moderno e eficiente para criação de interfaces gráficas em C++.</p>
+            <p>A interface gráfica do sistema foi projetada para ser intuitiva e completa, oferecendo os seguintes elementos:</p>
+            <ul>
+                <li><strong>Menu Principal:</strong> Permite que usuários comuns realizem login ou cadastro e que o administrador acesse o sistema com CPF e senha.</li>
+                <li><strong>Tela de Cadastro:</strong> Permite que os usuários informem nome, endereço, telefone e senha para cadastro.</li>
+                <li><strong>Tela de Login:</strong> Permite que usuários ou administradores acessem o sistema com CPF e senha.</li>
+                <li><strong>Menu do Usuário Comum:</strong> Exibe livros cadastrados e empréstimos realizados.</li>
+                <li><strong>Tela de Visualizar Livros:</strong> Lista livros físicos e digitais disponíveis.</li>
+                <li><strong>Tela de Visualizar Empréstimos:</strong> Mostra empréstimos ativos, concluídos e vencidos.</li>
+                <li><strong>Menu do Administrador:</strong> Permite gerenciar livros, usuários e empréstimos.</li>
+                <li><strong>Painéis de Gerenciamento:</strong> No menu do Administrador é possível acessar 4 painéis de gerenciamento, sendo eles de livros físicos e digitais, de usuários e empréstimos. Nessas telas, o administrador pode cadastrar, editar, pesquisar e remover livros e empréstimos, bem como remover ou editar dados de um usuário cadastrado.</li>
+            </ul>
+
+        <section id="interface">
+            <h2>Execução da Interface Gráfica</h2>
+            <p>A interface gráfica do sistema foi projetada para ser intuitiva e completa:</p>
+            <div class="video-container">
+                    <video controls>
+                        <source src="video/interface.mp4" type="video/mp4">
+                        Seu navegador não suporta a tag de vídeo.
+                    </video>
+            </div>
+        </section>
+
+        <section id="autores">
+            <h2>Autores</h2>
+            <div class="autores">
+                <div class="autor">
+                    <img src="img/giofoto.jpeg" alt="Giovanna Clócate">
+                    <p><strong>Giovanna Clócate</strong></p>
+                    <p>Organização de arquivos, desenvolvimento do Front-End e revisão do Back-End, criação do banco de dados no SQLite e integração da interface gráfica com o código.</p>
+                </div>
+                <div class="autor">
+                    <img src="img/mateus.jpeg" alt="Mateus Ribeiro">
+                    <p><strong>Mateus Ribeiro</strong></p>
+                    <p>Desenvolvimento do Back-End, estruturação inicial do código, criação e integração de classes e funções.</p>
+                </div>
+                <div class="autor">
+                    <img src="img/sergio.jpeg" alt="Sérgio Lira">
+                    <p><strong>Sérgio Lira</strong></p>
+                    <p>Auxílio no desenvolvimento do Front-End e Back-End, testes, correções e implementação de funções adicionais.</p>
+                </div>
+            </div>
+        </section>
+        
+        <footer class="footer">
+            <div class="container">
+                <p>© 2024 Sistema de Gerenciamento Bibliotecário. Todos os direitos reservados.</p>
+                <p>Confira também o projeto <a href="https://nerfies.github.io" target="_blank">Nerfies</a>.</p>
+            </div>
+        </footer>
+        
+        
+    </main>
+</body>
+</html>
